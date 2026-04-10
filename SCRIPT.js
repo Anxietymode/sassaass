@@ -1,4 +1,4 @@
-const tgUsername = "Desiredidol"; // ВПИШИ СВОЙ НИК
+const tgUsername = "Anxietymode1"; // ВПИШИ СВОЙ НИК
 
 let cart = [];
 let discount = 0; // Скидка по промокоду
@@ -21,6 +21,28 @@ themeBtn.addEventListener('click', () => {
     document.documentElement.classList.toggle('dark');
     themeBtn.innerText = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
 });
+
+const slider = document.querySelector('.snap-slider');
+
+slider.addEventListener('scroll', () => {
+    const cards = document.querySelectorAll('.snap-card');
+    const sliderCenter = slider.scrollLeft + slider.offsetWidth / 2;
+
+    cards.forEach(card => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(sliderCenter - cardCenter);
+
+        // Если карточка близко к центру, делаем её активной
+        if (distance < 100) {
+            card.style.transform = "scale(1.05)";
+            card.style.opacity = "1";
+        } else {
+            card.style.transform = "scale(0.95)";
+            card.style.opacity = "0.7";
+        }
+    });
+});
+
 
 // 2. ФИЛЬТРАЦИЯ КАРТОЧЕК
 filterBtns.forEach(btn => {
@@ -111,6 +133,7 @@ window.removeItem = function(id) {
 // 5. ПРОМОКОД
 document.getElementById('apply-promo').addEventListener('click', () => {
     const code = document.getElementById('promo-input').value;
+    
     if (code === 'CYBER10') {
         discount = 0.10; // 10% скидка
         alert('Промокод применен! Скидка 10%');
@@ -118,24 +141,4 @@ document.getElementById('apply-promo').addEventListener('click', () => {
     } else {
         alert('Неверный промокод!');
     }
-});
-const slider = document.querySelector('.snap-slider');
-
-slider.addEventListener('scroll', () => {
-    const cards = document.querySelectorAll('.snap-card');
-    const sliderCenter = slider.scrollLeft + slider.offsetWidth / 2;
-
-    cards.forEach(card => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const distance = Math.abs(sliderCenter - cardCenter);
-
-       
-        if (distance < 100) {
-            card.style.transform = "scale(1.05)";
-            card.style.opacity = "1";
-        } else {
-            card.style.transform = "scale(0.95)";
-            card.style.opacity = "0.7";
-        }
-    });
 });
